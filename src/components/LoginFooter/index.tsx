@@ -1,10 +1,26 @@
 import React from "react";
-import { Container, Title } from "./styles";
+import { Container, Title, TextButton } from "./styles";
 
-const LoginFooter = () => {
+interface LoginFooterProps {
+  isLogin?: boolean;
+  navigation?: any;
+}
+
+const LoginFooter = ({ isLogin, navigation }: LoginFooterProps) => {
+  const handleNavigate = () => {
+    navigation.navigate(isLogin ? 'CreateAccount' : 'Login');
+  }
+
   return (
     <Container>
-      <Title>Footer</Title>
+      <Title>
+        {isLogin ? `Não tem uma conta?` : `Já tem uma conta?`}
+      </Title>
+      <TextButton
+        onPress={handleNavigate}
+      >
+        {isLogin ? `Cadastre-se` : `Entre`}
+      </TextButton>
     </Container>
   )
 }

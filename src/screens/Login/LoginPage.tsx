@@ -2,6 +2,8 @@ import React from "react";
 import Form from "./FormLogin";
 import Header from "../../components/Header";
 import LoginFooter from "../../components/LoginFooter";
+import LoginWithGoogle from "../../components/LoginWithGoogle";
+
 
 import {
   Keyboard,
@@ -11,7 +13,7 @@ import {
 
 import { Container } from "./styles";
 
-function LoginPage() {
+function LoginPage({navigation}) {
   return (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -19,7 +21,8 @@ function LoginPage() {
           <>
             <Header isLogin={true} />
             <Form />
-            <LoginFooter />
+            <LoginFooter isLogin={true} navigation={navigation} />
+            <LoginWithGoogle/>
           </>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>

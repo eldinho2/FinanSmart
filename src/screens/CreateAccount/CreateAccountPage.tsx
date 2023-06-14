@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./FormCreate";
 import Header from "../../components/Header";
 import LoginFooter from "../../components/LoginFooter";
+import LoginWithGoogle from "../../components/LoginWithGoogle";
 
 import {
   Keyboard,
@@ -11,7 +12,7 @@ import {
 
 import { Container } from "./styles";
 
-function CreateAccount() {
+function CreateAccount({navigation}) {
   return (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -19,7 +20,8 @@ function CreateAccount() {
           <>
             <Header />
             <Form />
-            <LoginFooter />
+            <LoginFooter navigation={navigation} />
+            <LoginWithGoogle/>
           </>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>

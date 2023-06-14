@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "billsapp",
-    "slug": "billsapp",
+    "slug": "finansmart",
+    "scheme": "billsapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +30,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-google-signin/google-signin"]
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d8372ed6-cc63-4ca3-977d-e1234874269f"
+      }
+    },
+    "owner": "eldinho2"
   }
 }
