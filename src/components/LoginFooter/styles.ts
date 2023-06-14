@@ -15,6 +15,7 @@ export const Title = styled.Text`
 `;
 
 export const TextButton = styled.Text`
+  font-size: 16px;
   color: #41bc3f;
   border-bottom-width: 1px;
   border-bottom-color: #41bc3f;

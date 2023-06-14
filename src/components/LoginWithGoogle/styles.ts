@@ -20,7 +20,7 @@ export const TextContainer = styled.View`
 `;
 
 export const Text = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   color: #47474D;
   margin: 0 4px;
 `;

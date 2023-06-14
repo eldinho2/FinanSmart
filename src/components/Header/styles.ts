@@ -6,6 +6,7 @@ interface Props {
 
 export const Container = styled.View`
   width: 100%;
+  margin-top: 24px;
 `;
 
 export const Wrapper = styled.View<Props>`
