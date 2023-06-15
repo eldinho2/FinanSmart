@@ -20,7 +20,7 @@ function LoginPage({navigation}) {
         <KeyboardAvoidingView behavior="position" enabled>
           <>
             <Header isLogin={true} />
-            <Form />
+            <Form navigation={navigation} />
             <LoginFooter isLogin={true} navigation={navigation} />
             <LoginWithGoogle/>
           </>

@@ -17,13 +17,13 @@ const schema = object().shape({
   password: string().min(8, "A senha precisa ter ao menos 8 digitos").required("Informe uma senha"),
 });
 
-export default function Form() {
+export default function Form({navigation}) {
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema)
   });
 
   const handleUserRegister = (data:FormData)=> {
-      Alert.alert(data.email, data.password);
+    navigation.navigate('Home');
   }
 
   return (
@@ -50,7 +50,7 @@ export default function Form() {
       />
       <Button
         title="Entrar"
-        onPress={handleSubmit(handleUserRegister)}
+        onPress={handleUserRegister}
       />
     </Container>
   )
