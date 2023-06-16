@@ -1,8 +1,9 @@
 import React from "react";
-import Form from "./FormCreate";
-import Header from "../../components/Header";
-import LoginFooter from "../../components/LoginFooter";
-import LoginWithGoogle from "../../components/LoginWithGoogle";
+import Form from "./FormLogin";
+import Header from "../../../components/Header";
+import LoginFooter from "../../../components/LoginFooter";
+import LoginWithGoogle from "../../../components/LoginWithGoogle";
+
 
 import {
   Keyboard,
@@ -12,15 +13,15 @@ import {
 
 import { Container } from "./styles";
 
-function CreateAccount({navigation}) {
+function LoginPage({navigation}) {
   return (
     <Container>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView behavior="position" enabled>
           <>
-            <Header />
-            <Form />
-            <LoginFooter navigation={navigation} />
+            <Header isLogin={true} />
+            <Form navigation={navigation} />
+            <LoginFooter isLogin={true} navigation={navigation} />
             <LoginWithGoogle/>
           </>
         </KeyboardAvoidingView>
@@ -29,4 +30,4 @@ function CreateAccount({navigation}) {
   );
 }
 
-export default CreateAccount;
+export default LoginPage;
