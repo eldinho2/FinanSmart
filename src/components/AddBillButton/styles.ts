@@ -8,8 +8,8 @@ export const MainButton = styled.TouchableOpacity`
   width: 50px;
   height: 50px;
   position: absolute;
-  bottom: 20%;
-  right: 10%;
+  bottom: 5%;
+  right: 5%;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -21,6 +21,8 @@ export const Button = styled.TouchableOpacity`
   height: 40px;
   padding: 0 14px;
   gap: 16px;
+  border-bottom-width: 1px;
+  border-bottom-color: #000000;
 `;
 
 export const BottomSelectorOverlay = styled.TouchableOpacity`
@@ -41,7 +43,7 @@ export const BottomSelector = styled.View`
   height: 100px;
   background-color: #97e095;
   position: absolute;
-  bottom: 8%;
+  bottom: 0;
   align-items: center;
   justify-content: center;
 `;

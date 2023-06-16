@@ -1,6 +1,4 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import OverlayComponent from "../components/AddBillButton/OverlayComponent";
-import AddBillButton from "../components/AddBillButton";
 import { TopTabsRoutes } from "./topTabs.routes";
 import Profile from "../screens/Profile";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -9,7 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const Tab = createMaterialBottomTabNavigator();
 
-export function BottomTabsRoutes() {
+export function BottomTabsRoutes({navigation}) {
   return (
     <Tab.Navigator
       initialRouteName="Main"

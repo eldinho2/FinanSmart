@@ -1,26 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { Feather } from "@expo/vector-icons";
-import Login from "../screens/LoginScreens/Login/LoginPage";
+import LoginPage from "../screens/LoginScreens/Login/LoginPage";
 import CreateAccount from "../screens/LoginScreens/CreateAccount/CreateAccountPage";
-import { TopTabsRoutes } from "./topTabs.routes"
 import { BottomTabsRoutes } from "./bottomTabs.routes";
+import { TopTabsAddBills } from "./topTabsAddBills.routes";
 import { Alert } from "react-native";
-import OverlayComponent from '../components/AddBillButton/OverlayComponent'
-import { View, Text } from "react-native";
-import { OverlayContext } from "../contexts/OverlayContext";
-import { useContext } from "react";
 const { Navigator, Screen } = createNativeStackNavigator();
 
-export function LoginRoutes() {
-  const { overlayOpen } = useContext(OverlayContext);
 
+export function LoginRoutes({navigation}) {
   return (
-    <View style={{ flex: 1 }}>
       <Navigator>
         <Screen
           name="Login"
-          component={Login}
+          component={LoginPage}
           options={{
             headerShown: false,
           }}
@@ -53,10 +47,14 @@ export function LoginRoutes() {
             ),
           }}
         />
+        <Screen
+          name="AddBill"
+          component={TopTabsAddBills}
+          options={{
+            headerTitleAlign: "center",
+            gestureEnabled: false,
+          }}
+          />
       </Navigator>
-      {overlayOpen && (
-        <OverlayComponent />
-      )}
-    </View>
   );
 }
