@@ -4,8 +4,9 @@ import React from "react";
 import InfoMes from "../screens/InfoMes";
 import InfoMeses from "../screens/InfoMeses";
 import { Dimensions } from "react-native";
-
 const Tab = createMaterialTopTabNavigator();
+
+import { BottomTabsRoutes } from "./bottomTabs.routes";
 
 const date = new Date();
 

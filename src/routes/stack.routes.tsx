@@ -3,10 +3,11 @@ import React from "react";
 import { Feather } from "@expo/vector-icons";
 import Login from "../screens/LoginScreens/Login/LoginPage";
 import CreateAccount from "../screens/LoginScreens/CreateAccount/CreateAccountPage";
-import { TopTabsRoutes } from "./topTabs.routes";
+import { TopTabsRoutes } from "./topTabs.routes"
+import { BottomTabsRoutes } from "./bottomTabs.routes";
 import { Alert } from "react-native";
 import OverlayComponent from '../components/AddBillButton/OverlayComponent'
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { OverlayContext } from "../contexts/OverlayContext";
 import { useContext } from "react";
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -33,7 +34,7 @@ export function LoginRoutes() {
         />
         <Screen
           name="Home"
-          component={TopTabsRoutes}
+          component={BottomTabsRoutes}
           options={{
             title: "Despesas",
             headerBackVisible: false,
