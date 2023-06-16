@@ -26,6 +26,11 @@ export function BottomTabsRoutes() {
       <Tab.Screen
         name="Main"
         component={TopTabsRoutes}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="bitcoin" color={color} size={26} />
+          ),
+        }}
       />
       <Tab.Screen
         options={{

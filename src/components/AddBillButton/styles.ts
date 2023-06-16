@@ -5,10 +5,10 @@ export const MainButton = styled.TouchableOpacity`
   background-color: #97e095;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   position: absolute;
-  bottom: 30%;
+  bottom: 20%;
   right: 10%;
 `;
 

@@ -5,8 +5,9 @@ import InfoMes from "../screens/InfoMes";
 import InfoMeses from "../screens/InfoMeses";
 import { Dimensions } from "react-native";
 const Tab = createMaterialTopTabNavigator();
+import { View } from "react-native";
 
-import { BottomTabsRoutes } from "./bottomTabs.routes";
+import AddBillButton from "../components/AddBillButton";
 
 const date = new Date();
 
@@ -29,6 +30,7 @@ const mesAtual = nomesMeses[date.getMonth()];
 
 export function TopTabsRoutes() {
   return (
+    <View style={{ flex: 1 }}>
     <Tab.Navigator
       initialRouteName="MesAtual"
       initialLayout={{ width: Dimensions.get("window").width }}
@@ -49,5 +51,7 @@ export function TopTabsRoutes() {
         component={InfoMeses}
       />
     </Tab.Navigator>
+    <AddBillButton />
+    </View>
   );
 }
