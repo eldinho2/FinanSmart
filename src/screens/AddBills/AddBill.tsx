@@ -6,42 +6,21 @@ import {
   AddButton,
   Text,
 } from "./styles";
-import { Alert, Platform, Pressable } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { Alert } from "react-native";
+import DateInput from "../../components/DateInput";
 
 interface FormData {
   amount: string;
+  date: string;
   description: string;
 }
 
-export function AddBill({ navigation }) {
-  const [showPicker, setShowPicker] = useState(false);
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [date, setDate] = useState('');
+export function AddBill() {
   const [formData, setFormData] = useState<FormData>({
     amount: "",
+    date: new Date().toLocaleDateString('pt-BR', {year: 'numeric', month: 'long', day: 'numeric'}),
     description: "",
   });
-
-  const toggleDatePicker = () => {
-    setShowPicker(!showPicker);
-  };
-
-  const Onchange = ({ type }, selectedDate) => {
-    if (type == "set") {
-      const currentDate = selectedDate;
-      setCurrentDate(currentDate);
-      setDate(currentDate.toDateString());
-
-      if (Platform.OS === "android") {
-        toggleDatePicker();
-        setCurrentDate(currentDate.toDateString());
-      }
-
-    } else {
-      toggleDatePicker();
-    }
-  };
 
   const handleChange = (field, value) => {
     setFormData((prevFormData) => ({
@@ -50,14 +29,14 @@ export function AddBill({ navigation }) {
     }));
   };
 
+  const updateDate = (date) => {
+    const fomatedDate = date.toLocaleDateString('pt-BR', {year: 'numeric', month: 'long', day: 'numeric'})
+    handleChange('date', fomatedDate)
+  }
+  
   const handleSubmit = () => {
-    Alert.alert(formData.amount, formData.description);
+    Alert.alert(formData.amount, formData.date);
   };
-
-  const state = navigation.getState();
-  const name = state.routes[state.index].name;
-
-  console.log(name);
 
   return (
     <Container>
@@ -67,25 +46,7 @@ export function AddBill({ navigation }) {
         placeholder="Montante"
         keyboardType="numeric"
       />
-      <Container>
-      <Text>Date</Text>
-        {showPicker && (
-          <DateTimePicker
-            mode="date"
-            display="spinner"
-            value={currentDate}
-            onChange={Onchange}
-          />
-        )}
-        {!showPicker && (
-          <Pressable onPress={toggleDatePicker}>
-            <InputText
-             value={date}
-             placeholder="Data"
-             editable={false} />
-          </Pressable>
-        )}
-      </Container>
+      <DateInput updateDate={updateDate} />
       <InputTextDescription
         onChangeText={(value) => handleChange("description", value)}
         value={formData.description}

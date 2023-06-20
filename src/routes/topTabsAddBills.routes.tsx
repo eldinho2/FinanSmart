@@ -11,6 +11,9 @@ export function TopTabsAddBills() {
     <Tab.Navigator
       initialRouteName="AddBill"
       initialLayout={{ width: Dimensions.get("window").width }}
+      screenOptions={{
+        swipeEnabled: false,
+      }}
     >
       <Tab.Screen
        name="Despesa"
