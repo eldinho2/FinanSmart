@@ -62,12 +62,14 @@ export const AddButtonText = styled.TouchableOpacity`
   background-color: #ccc;
   border-radius: 10px;
   border-color: #ccc;
+	margin-top: 14px;
 `;
 
 export const Overlay = styled.TouchableOpacity`
 	width: 1000px;
 	height: 100%;
 	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
 `;
 
 export const ModalContainer = styled.View`

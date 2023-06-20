@@ -18,10 +18,16 @@ export function TopTabsAddBills() {
       <Tab.Screen
        name="Despesa"
        component={AddBill}
+       options={{
+        tabBarIndicatorStyle: { backgroundColor: '#bb5502'},
+       }}
       />
       <Tab.Screen
        name='Renda'
        component={AddIncome}
+        options={{
+        tabBarIndicatorStyle: { backgroundColor: '#2c8f2a' }
+        }}
       />
     </Tab.Navigator>
   );

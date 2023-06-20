@@ -11,7 +11,7 @@ import {
 import { Alert, Keyboard, TouchableOpacity } from "react-native";
 import DateInput from "../../components/DateInput";
 import ShowRepetitionOptions from "../../components/ShowRepetitionOptions";
-import Calculator from "../../components/Calculator";
+import { Feather } from '@expo/vector-icons';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface FormData {
@@ -23,7 +23,6 @@ interface FormData {
 
 export function AddIncome() {
   const [showRepetition, setShowRepetition] = useState(false);
-  const [showCalculator, setShowCalculator] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     amount: "",
     date: new Date().toLocaleDateString("pt-BR", {
@@ -57,10 +56,6 @@ export function AddIncome() {
     handleChange("repetition", data);
   };
 
-  const handleCalculator = () => {
-    setShowCalculator(!showCalculator);
-  };
-
   const handleSubmit = () => {
     Alert.alert(formData.repetition, formData.description);
   };
@@ -68,16 +63,13 @@ export function AddIncome() {
   return (
     <Container>
       <InputWrapper>
-        <MaterialCommunityIcons name="cake" size={26} />
+      <Feather name={'dollar-sign'} size={24} />
         <InputText
           onChangeText={(value) => handleChange("amount", value)}
           value={formData.amount}
           placeholder="Montante"
           keyboardType="numeric"
         />
-        <TouchableOpacity onPress={() => handleCalculator()}>
-          <MaterialCommunityIcons name="calculator-variant-outline" size={26} />
-        </TouchableOpacity>
       </InputWrapper>
       <InputWrapper>
         <MaterialCommunityIcons name="calendar" size={26} />
@@ -101,7 +93,6 @@ export function AddIncome() {
       {showRepetition && (
         <ShowRepetitionOptions handleRepetition={handleRepetition} />
       )}
-      {showCalculator && <Calculator handleCalculator={handleCalculator} />}
     </Container>
   );
 }
