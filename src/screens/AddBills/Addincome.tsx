@@ -84,7 +84,7 @@ export function AddIncome() {
         />
       </InputWrapper>
       <AddButtonText onPress={() => handleRepetition()}>
-        <Text>Selecionar Opção de Repetição</Text>
+        <Text>{formData.repetition ? `Irá repetir ${formData.repetition}` : 'Selecionar Opção de Repetição'}</Text>
         <MaterialCommunityIcons name="arrow-u-left-top" size={26} />
       </AddButtonText>
       <AddButton onPress={() => handleSubmit()}>

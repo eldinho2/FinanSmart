@@ -12,7 +12,9 @@ import { Alert, Keyboard, TouchableOpacity } from "react-native";
 import DateInput from "../../components/DateInput";
 import { Feather } from '@expo/vector-icons';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+import ShowRepetitionOptions from "../../components/ShowRepetitionOptions";
+import { getRealm } from '../../database/realm'
+import uuid from 'react-native-uuid'
 interface FormData {
   amount: string;
   date: string;
@@ -20,7 +22,8 @@ interface FormData {
   repetition?: string;
 }
 
-export function AddBill() {
+export function AddBill({ navigation }) {
+  const [showRepetition, setShowRepetition] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     amount: "",
     date: new Date().toLocaleDateString("pt-BR", {
@@ -29,7 +32,7 @@ export function AddBill() {
       day: "numeric",
     }),
     description: "",
-    repetition: "",
+    repetition: "Diariamente",
   });
 
   const handleChange = (field, value) => {
@@ -48,8 +51,39 @@ export function AddBill() {
     handleChange("date", fomatedDate);
   };
 
-  const handleSubmit = () => {
-    Alert.alert(formData.repetition, formData.description);
+  const handleRepetition = (data?: string) => {
+    Keyboard.dismiss();
+    setShowRepetition(!showRepetition);
+    handleChange("repetition", data);
+  };
+
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
+  const handleSubmit = async() => {
+    const realm = await getRealm();
+
+    try {
+      realm.write(() => {
+        realm.create('Bill', {
+          _id: uuid.v4(),
+          amount: formData.amount,
+          date: formData.date,
+          description: formData.description,
+          repetition: formData.repetition,
+          created_at: new Date(),
+          isBill: true
+        })
+      })
+      Alert.alert('Conta adicionada com sucesso!');
+    } catch (error) {
+      console.log(error);
+      
+      Alert.alert('Algo deu errado');
+    } finally {
+      realm.close();
+    }
   };
 
   return (
@@ -75,9 +109,16 @@ export function AddBill() {
           placeholder="Descrição"
         />
       </InputWrapper>
+      <AddButtonText onPress={() => handleRepetition()}>
+      <Text>{formData.repetition ? `Irá repetir ${formData.repetition}` : 'Selecionar Opção de Repetição'}</Text>
+        <MaterialCommunityIcons name="arrow-u-left-top" size={26} />
+      </AddButtonText>
       <AddButton onPress={() => handleSubmit()}>
         <Text>Adicionar</Text>
       </AddButton>
+      {showRepetition && (
+        <ShowRepetitionOptions handleRepetition={handleRepetition} />
+      )}
     </Container>
   );
 }

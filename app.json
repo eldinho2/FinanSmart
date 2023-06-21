@@ -1,43 +1,10 @@
 {
   "expo": {
-    "name": "billsapp",
-    "slug": "finansmart",
-    "scheme": "billsapp",
+    "name": "my-app",
+    "slug": "my-app",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "extends": "@tsconfig/react-native/tsconfig.json",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "supportsTablet": true
-    },
-    "android": {
-      "googleServicesFile": "./google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "@react-native-google-signin/google-signin"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "d8372ed6-cc63-4ca3-977d-e1234874269f"
-      }
-    },
-    "owner": "eldinho2"
+    ]
   }
 }
