@@ -1,7 +1,7 @@
 import Realm from 'realm';
-import { BillSchema } from './schemas/BillSchema';
+import { BillObjectSchema } from './schemas/BillObjectSchema';
 
 export const getRealm = async () => await Realm.open({
-  path: 'bills.realm',
-  schema: [BillSchema],
+  path: 'BillObjectSchema.realm',
+  schema: [BillObjectSchema],
 });

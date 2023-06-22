@@ -1,43 +1,37 @@
-import { View, Text, Alert, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { getRealm } from '../../database/realm';
+import { View, Text, Alert, FlatList } from "react-native";
+import React from "react";
+import BillComponent from "../../components/BillComponent";
+import useFetchData from "../../hooks/useFetchData";
+import { useFocusEffect } from "@react-navigation/native";
 
-interface BillProps {
-  _id: string,
-  amount: string,
-  date: string,
-  description: string,
-  repetition: string,
-  created_at: Date,
-  isBill: boolean,
-}
+
+type BillProps = {
+  _id: string;
+  name: string;
+  amount: string;
+  date: string;
+  description: string;
+  repetition: string;
+  created_at: Date;
+  isBill: boolean;
+};
 
 export default function InfoMes() {
-  const [billsData, setBillsData] = useState<BillProps[]>([]);
+  const [data, setData] = React.useState<BillProps[]>([]);
 
-  const fechData = async() => {
-    const realm = await getRealm();
-
-    try {
-      const data = realm.objects('Bill');
-      setBillsData(data);
-      Alert.alert('data', data);
-      
-    } catch (error) {
-      console.log(error);
-    } finally {
-      realm.close();
-    }
-  }
-
-  useEffect(() => {
-    fechData();
-  }, [])
-
+  useFocusEffect(() => {
+    const billsData = useFetchData();
+    setData(billsData);
+  });
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View>
       <Text>Hoje</Text>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => <BillComponent props={item} />}
+      />
     </View>
-  )
+  );
 }

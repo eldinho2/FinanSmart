@@ -1,5 +1,5 @@
-export const BillSchema = {
-  name: 'Bill',
+export const BillObjectSchema = {
+  name: 'BillObjectSchema',
 
   properties: {
     _id: 'string',

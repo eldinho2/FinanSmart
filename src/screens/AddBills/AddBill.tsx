@@ -23,7 +23,7 @@ interface FormData {
   repetition?: string;
 }
 
-export function AddBill() {
+export function AddBill({ navigation }: any) {
   const [showRepetition, setShowRepetition] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -59,13 +59,17 @@ export function AddBill() {
     handleChange("repetition", data ? data : 'Diariamente');
   };
 
+  const goBack = () => {
+    navigation.goBack();
+  }
+
   const handleSubmit = async() => {
     const realm = await getRealm();
-
     try {
       realm.write(() => {
-        realm.create('Bill', {
+        realm.create('BillObjectSchema', {
           _id: uuid.v4(),
+          name: formData.name,
           amount: formData.amount,
           date: formData.date,
           description: formData.description,
@@ -74,6 +78,8 @@ export function AddBill() {
           isBill: true
         })
       })
+      goBack();
+      
       Alert.alert('Conta adicionada com sucesso!');
     } catch (error) {
       console.log(error);
@@ -90,7 +96,7 @@ export function AddBill() {
       <Feather name={'align-left'} size={24} />
         <InputText
           onChangeText={(value: any) => handleChange("name", value)}
-          value={formData.amount}
+          value={formData.name}
           placeholder="Nome"
         />
       </InputWrapper>
