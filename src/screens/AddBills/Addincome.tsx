@@ -34,14 +34,14 @@ export function AddIncome() {
     repetition: "",
   });
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: string, value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [field]: value,
     }));
   };
 
-  const updateDate = (date) => {
+  const updateDate = (date: Date) => {
     const fomatedDate = date.toLocaleDateString("pt-BR", {
       year: "numeric",
       month: "long",
@@ -53,19 +53,27 @@ export function AddIncome() {
   const handleRepetition = (data?: string) => {
     Keyboard.dismiss();
     setShowRepetition(!showRepetition);
-    handleChange("repetition", data);
+    handleChange("repetition", data ? data : 'Diariamente');
   };
 
-  const handleSubmit = () => {
-    Alert.alert(formData.repetition, formData.description);
-  };
+  const handleSubmit = async () => {
+    Alert.alert('Sucesso', 'Renda adicionada com sucesso')
+  }
 
   return (
     <Container>
       <InputWrapper>
+        <Feather name={'align-left'} size={24} />
+          <InputText
+            onChangeText={(value: any) => handleChange("name", value)}
+            value={formData.amount}
+            placeholder="Nome"
+          />
+      </InputWrapper>
+      <InputWrapper>
       <Feather name={'dollar-sign'} size={24} />
         <InputText
-          onChangeText={(value) => handleChange("amount", value)}
+          onChangeText={(value: any) => handleChange("amount", value)}
           value={formData.amount}
           placeholder="Montante"
           keyboardType="numeric"
@@ -78,7 +86,7 @@ export function AddIncome() {
       <InputWrapper>
         <MaterialCommunityIcons name="application-edit-outline" size={26} />
         <InputTextDescription
-          onChangeText={(value) => handleChange("description", value)}
+          onChangeText={(value: any) => handleChange("description", value)}
           value={formData.description}
           placeholder="Descrição"
         />

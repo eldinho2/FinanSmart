@@ -8,7 +8,7 @@ import {
   AddButtonText,
   InputWrapper,
 } from "./styles";
-import { Alert, Keyboard, TouchableOpacity } from "react-native";
+import { Alert, Keyboard, TouchableOpacity } from 'react-native';
 import DateInput from "../../components/DateInput";
 import { Feather } from '@expo/vector-icons';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -16,15 +16,17 @@ import ShowRepetitionOptions from "../../components/ShowRepetitionOptions";
 import { getRealm } from '../../database/realm'
 import uuid from 'react-native-uuid'
 interface FormData {
+  name: string;
   amount: string;
   date: string;
   description: string;
   repetition?: string;
 }
 
-export function AddBill({ navigation }) {
+export function AddBill() {
   const [showRepetition, setShowRepetition] = useState(false);
   const [formData, setFormData] = useState<FormData>({
+    name: "",
     amount: "",
     date: new Date().toLocaleDateString("pt-BR", {
       year: "numeric",
@@ -35,14 +37,14 @@ export function AddBill({ navigation }) {
     repetition: "Diariamente",
   });
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: string, value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [field]: value,
     }));
   };
 
-  const updateDate = (date) => {
+  const updateDate = (date: { toLocaleDateString: (arg0: string, arg1: { year: string; month: string; day: string; }) => any; }) => {
     const fomatedDate = date.toLocaleDateString("pt-BR", {
       year: "numeric",
       month: "long",
@@ -54,11 +56,7 @@ export function AddBill({ navigation }) {
   const handleRepetition = (data?: string) => {
     Keyboard.dismiss();
     setShowRepetition(!showRepetition);
-    handleChange("repetition", data);
-  };
-
-  const handleBack = () => {
-    navigation.goBack();
+    handleChange("repetition", data ? data : 'Diariamente');
   };
 
   const handleSubmit = async() => {
@@ -89,9 +87,17 @@ export function AddBill({ navigation }) {
   return (
     <Container>
       <InputWrapper>
+      <Feather name={'align-left'} size={24} />
+        <InputText
+          onChangeText={(value: any) => handleChange("name", value)}
+          value={formData.amount}
+          placeholder="Nome"
+        />
+      </InputWrapper>
+      <InputWrapper>
       <Feather name={'dollar-sign'} size={24} />
         <InputText
-          onChangeText={(value) => handleChange("amount", value)}
+          onChangeText={(value: any) => handleChange("amount", value)}
           value={formData.amount}
           placeholder="Montante"
           keyboardType="numeric"
@@ -104,7 +110,7 @@ export function AddBill({ navigation }) {
       <InputWrapper>
         <MaterialCommunityIcons name="application-edit-outline" size={26} />
         <InputTextDescription
-          onChangeText={(value) => handleChange("description", value)}
+          onChangeText={(value: any) => handleChange("description", value)}
           value={formData.description}
           placeholder="Descrição"
         />

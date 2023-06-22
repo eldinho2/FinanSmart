@@ -1,17 +1,22 @@
-import { View, Text, Platform, TouchableOpacity } from "react-native";
+import { View, Platform, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { InputTextDate } from "../../screens/AddBills/styles";
 
-const DateInput = ({updateDate}) => {
+interface DateInputProps {
+  updateDate: (date: Date) => void;
+}
+
+const DateInput = ({ updateDate }: DateInputProps) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
+  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-    updateDate(currentDate)
+    updateDate(currentDate);
   };
 
   const showDatepicker = () => {
@@ -34,7 +39,7 @@ const DateInput = ({updateDate}) => {
           onChange={onChange}
           locale='pt-BR'
         />
-      )}
+      )} 
     </View>
   );
 };

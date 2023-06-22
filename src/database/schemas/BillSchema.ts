@@ -3,6 +3,7 @@ export const BillSchema = {
 
   properties: {
     _id: 'string',
+    name: 'string',
     amount: 'string',
     date: 'string',
     description: 'string',

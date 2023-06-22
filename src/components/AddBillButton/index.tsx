@@ -2,7 +2,7 @@ import React from "react";
 import { MainButton } from "./styles";
 import { Feather } from "@expo/vector-icons";
 
-function AddBillButton({navigation}) {
+function AddBillButton({navigation}: any) {
   return (
     <>
       <MainButton onPress={() => navigation.navigate('AddBill')}>
