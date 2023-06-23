@@ -19,7 +19,7 @@ type BillProps = {
 export default function InfoMes() {
   const [billsData, setBillsData] = useState<BillProps[]>([]);
 
-  const fechData = async () => {
+  const fetchData = async () => {
     const realm = await getRealm();
     try {
       const data = realm
@@ -40,7 +40,7 @@ export default function InfoMes() {
 
       setBillsData(data);
       console.log(data);
-      
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -48,18 +48,38 @@ export default function InfoMes() {
     }
   };
 
+  const deleteBill = async (id: string) => {
+    const realm = await getRealm();
+    try {
+      realm.write(() => {
+        const billToDelete = realm.objectForPrimaryKey("BillObjectSchema", id);
+        if (billToDelete) {
+          realm.delete(billToDelete);
+          console.log("Registro excluído com sucesso.");
+          fetchData();
+        } else {
+          console.log("Registro não encontrado.");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useFocusEffect(useCallback(() => {
-    fechData();
+    fetchData();
   }, []));
 
   return (
     <View>
       <Text>Hoje</Text>
-        <FlatList
-          data={billsData}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => <BillComponent props={item} />}
-        />
+      <FlatList
+        data={billsData}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <BillComponent props={item} onDelete={deleteBill} />
+        )}
+      />
     </View>
   );
 }
