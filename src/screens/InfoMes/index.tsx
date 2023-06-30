@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { getRealm } from "../../database/realm";
 import BillComponent from "../../components/BillComponent";
 import { useFocusEffect } from "@react-navigation/native";
-import { Container } from "./styles";
+import { Container, OptionText, OptionsContainer, Option } from "./styles";
 
 type BillProps = {
   _id: string;
@@ -18,6 +18,7 @@ type BillProps = {
 
 export default function InfoMes() {
   const [billsData, setBillsData] = useState<BillProps[]>([]);
+  const [activeOption, setActiveOption] = useState<string>("Despesa");
 
   const fetchData = async () => {
     const realm = await getRealm();
@@ -70,8 +71,22 @@ export default function InfoMes() {
     fetchData();
   }, []));
 
+  const handleOption = (option: string) => {
+    setActiveOption(option);
+    console.log(activeOption);
+    
+  }
+
   return (
     <View>
+      <OptionsContainer>
+        <Option onPress={() => handleOption('Despesa')} activeOption={activeOption === 'Despesa'}>
+          <OptionText activeOption={activeOption === 'Despesa'}>Despesa</OptionText>
+        </Option>
+        <Option onPress={() => handleOption('Renda')} activeOption={activeOption === 'Renda'}>
+          <OptionText activeOption={activeOption === 'Renda'}>Renda</OptionText>
+        </Option>
+      </OptionsContainer>
       <Text>Hoje</Text>
       <FlatList
         data={billsData}
