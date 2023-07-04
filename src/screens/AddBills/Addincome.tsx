@@ -13,17 +13,21 @@ import DateInput from "../../components/DateInput";
 import ShowRepetitionOptions from "../../components/ShowRepetitionOptions";
 import { Feather } from '@expo/vector-icons';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { getRealm } from '../../database/realm'
+import uuid from 'react-native-uuid'
 
 interface FormData {
+  name: string;
   amount: string;
   date: string;
   description: string;
   repetition?: string;
 }
 
-export function AddIncome() {
+export function AddIncome({ navigation }: any) {
   const [showRepetition, setShowRepetition] = useState(false);
   const [formData, setFormData] = useState<FormData>({
+    name: "",
     amount: "",
     date: new Date().toLocaleDateString("pt-BR", {
       year: "numeric",
@@ -31,7 +35,7 @@ export function AddIncome() {
       day: "numeric",
     }),
     description: "",
-    repetition: "",
+    repetition: "Diariamente",
   });
 
   const handleChange = (field: string, value: string) => {
@@ -56,9 +60,36 @@ export function AddIncome() {
     handleChange("repetition", data ? data : 'Diariamente');
   };
 
-  const handleSubmit = async () => {
-    Alert.alert('Sucesso', 'Renda adicionada com sucesso')
-  }
+  const handleSubmit = async() => {
+    const realm = await getRealm();
+    try {
+      realm.write(() => {
+        realm.create('BillObjectSchema', {
+          _id: uuid.v4(),
+          name: formData.name,
+          amount: formData.amount,
+          date: formData.date,
+          description: formData.description,
+          repetition: formData.repetition,
+          created_at: new Date(),
+          isBill: false,
+        })
+      })
+      goBack();
+      
+      Alert.alert('Conta adicionada com sucesso!');
+    } catch (error) {
+      console.log(error);
+      
+      Alert.alert('Algo deu errado');
+    } finally {
+      realm.close();
+    }
+  };
+
+  const goBack = () => {
+    navigation.navigate('Home');
+  };
 
   return (
     <Container>
@@ -66,7 +97,7 @@ export function AddIncome() {
         <Feather name={'align-left'} size={24} />
           <InputText
             onChangeText={(value: any) => handleChange("name", value)}
-            value={formData.amount}
+            value={formData.name}
             placeholder="Nome"
           />
       </InputWrapper>

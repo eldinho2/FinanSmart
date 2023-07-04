@@ -18,10 +18,10 @@ export const OptionsContainer = styled.View`
   border-bottom-color: #ccc;
 `;
 
-export const Option = styled.TouchableOpacity<activeOption>`
-    background-color: ${({ status }) => status === 'Despesa' ? '#ccc' : '#fff'};
+export const Option = styled.TouchableOpacity`
+    background-color: red;
 `;
 
-export const OptionText = styled.Text<activeOption>`
+export const OptionText = styled.Text`
   font-size: 18px;
 `;

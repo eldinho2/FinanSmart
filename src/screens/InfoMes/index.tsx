@@ -26,7 +26,6 @@ export default function InfoMes() {
       const data = realm
         .objects<BillProps[]>("BillObjectSchema")
         .sorted("created_at", true)
-        .filtered("isBill == true")
         .toJSON()
         .map((item: Record<string, unknown>) => ({
           _id: item._id as string,
@@ -41,7 +40,6 @@ export default function InfoMes() {
 
       setBillsData(data);
       console.log(data);
-
     } catch (error) {
       console.log(error);
     } finally {
@@ -67,34 +65,48 @@ export default function InfoMes() {
     }
   };
 
-  useFocusEffect(useCallback(() => {
-    fetchData();
-  }, []));
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
+  const bills = billsData.filter((item) => item.isBill === true);
+  const incomes = billsData.filter((item) => item.isBill === false);
 
   const handleOption = (option: string) => {
     setActiveOption(option);
     console.log(activeOption);
-    
-  }
+  };
 
   return (
     <View>
       <OptionsContainer>
-        <Option onPress={() => handleOption('Despesa')} activeOption={activeOption === 'Despesa'}>
-          <OptionText activeOption={activeOption === 'Despesa'}>Despesa</OptionText>
+        <Option onPress={() => handleOption("Despesa")}>
+          <OptionText>Despesa</OptionText>
         </Option>
-        <Option onPress={() => handleOption('Renda')} activeOption={activeOption === 'Renda'}>
-          <OptionText activeOption={activeOption === 'Renda'}>Renda</OptionText>
+        <Option onPress={() => handleOption("Renda")}>
+          <OptionText>Renda</OptionText>
         </Option>
       </OptionsContainer>
       <Text>Hoje</Text>
-      <FlatList
-        data={billsData}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
-          <BillComponent props={item} onDelete={deleteBill} />
-        )}
-      />
+      {activeOption === "Despesa" ? (
+        <FlatList
+          data={bills}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <BillComponent props={item} onDelete={deleteBill} />
+          )}
+        />
+      ) : (
+        <FlatList
+          data={incomes}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <BillComponent props={item} onDelete={deleteBill} />
+          )}
+        />
+      )}
     </View>
   );
 }
