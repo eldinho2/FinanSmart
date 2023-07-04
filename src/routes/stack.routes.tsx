@@ -9,7 +9,7 @@ import { Alert } from "react-native";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 
-export function LoginRoutes({navigation}) {
+export function LoginRoutes() {
   return (
       <Navigator>
         <Screen

@@ -28,7 +28,7 @@ let nomesMeses = [
 
 const mesAtual = nomesMeses[date.getMonth()];
 
-export function TopTabsRoutes({navigation}) {
+export function TopTabsRoutes({navigation}: any) {
   return (
     <View style={{ flex: 1 }}>
     <Tab.Navigator

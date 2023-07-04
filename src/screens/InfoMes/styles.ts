@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
-export type activeOption = {
-  status: 'Despesa' | 'Renda';
+export type status = {
+  status: string
 };
 
 export const Container = styled.View`
@@ -18,10 +18,21 @@ export const OptionsContainer = styled.View`
   border-bottom-color: #ccc;
 `;
 
-export const Option = styled.TouchableOpacity`
-    background-color: red;
+export const OptionRenda  = styled.TouchableOpacity<status>`
+  border-bottom-width: 2px;
+  border-bottom-color: ${(props) => props.status === 'Renda' ? 'black' : 'transparent'};
 `;
 
-export const OptionText = styled.Text`
+export const OptionDespesa = styled.TouchableOpacity<status>`
+  border-bottom-width: 2px;
+  border-bottom-color: ${(props) => props.status === 'Despesa' ? 'black' : 'transparent'};
+`;
+
+
+export const OptionTextDespesa = styled.Text`
+  font-size: 18px;
+`;
+
+export const OptionTextRenda = styled.Text`
   font-size: 18px;
 `;

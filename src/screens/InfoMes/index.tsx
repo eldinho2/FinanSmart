@@ -3,9 +3,11 @@ import React, { useCallback, useState } from "react";
 import { getRealm } from "../../database/realm";
 import BillComponent from "../../components/BillComponent";
 import { useFocusEffect } from "@react-navigation/native";
-import { Container, OptionText, OptionsContainer, Option } from "./styles";
+import { OptionTextDespesa, OptionTextRenda, OptionsContainer, OptionRenda, OptionDespesa } from "./styles";
+import BillsFilterd from "./BillsFilterd";
+import IncomeFiltered from "./IncomeFiltred";
 
-type BillProps = {
+export type BillProps = {
   _id: string;
   name: string;
   amount: string;
@@ -73,6 +75,8 @@ export default function InfoMes() {
 
   const bills = billsData.filter((item) => item.isBill === true);
   const incomes = billsData.filter((item) => item.isBill === false);
+  
+
 
   const handleOption = (option: string) => {
     setActiveOption(option);
@@ -82,30 +86,17 @@ export default function InfoMes() {
   return (
     <View>
       <OptionsContainer>
-        <Option onPress={() => handleOption("Despesa")}>
-          <OptionText>Despesa</OptionText>
-        </Option>
-        <Option onPress={() => handleOption("Renda")}>
-          <OptionText>Renda</OptionText>
-        </Option>
+        <OptionDespesa status={activeOption} onPress={() => handleOption("Despesa")}>
+          <OptionTextDespesa>Despesa</OptionTextDespesa>
+        </OptionDespesa>
+        <OptionRenda status={activeOption} onPress={() => handleOption("Renda")}>
+          <OptionTextRenda>Renda</OptionTextRenda>
+        </OptionRenda>
       </OptionsContainer>
-      <Text>Hoje</Text>
       {activeOption === "Despesa" ? (
-        <FlatList
-          data={bills}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <BillComponent props={item} onDelete={deleteBill} />
-          )}
-        />
+        <BillsFilterd bills={bills} deleteBill={deleteBill} />
       ) : (
-        <FlatList
-          data={incomes}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <BillComponent props={item} onDelete={deleteBill} />
-          )}
-        />
+        <IncomeFiltered incomes={incomes} deleteBill={deleteBill}/>
       )}
     </View>
   );
