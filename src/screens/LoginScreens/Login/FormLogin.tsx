@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Alert } from 'react-native';
+import React from 'react';
 import { Button } from '../../../components/Button';
 import { ControlledInput } from '../../../components/ControlledInput';
 import { Container } from './styles';
@@ -17,7 +16,7 @@ const schema = object().shape({
   password: string().min(8, "A senha precisa ter ao menos 8 digitos").required("Informe uma senha"),
 });
 
-export default function Form({navigation}) {
+export default function Form({navigation}: any) {
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema)
   });
