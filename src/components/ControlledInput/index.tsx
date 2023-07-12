@@ -16,7 +16,7 @@ export const ControlledInput = ({ control, name, error, ...rest }: Props) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <Input
-            icon={'search'} onChangeText={onChange}
+            onChangeText={onChange}
             value={value}
             {...rest}        
             />
